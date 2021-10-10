@@ -207,7 +207,25 @@ public class PartidoDeFutbolTest {
 	
 	@Test
 	public void pruebaDelToString() {
-		/* Prueba del resumen del partido por consola */
+		String valorObtenido;
+		String valorEsperado = "Resumen del Partido: \n"
+				+ "Equipo Local: Local(1)\n"
+				+ "Equipo Visitante: Visitante(2)\n"
+				+ "------------------------------\n"
+				+ "Goles: \n"
+				+ "Minuto: 10/ Autor: Martin(Local)(A Favor)\n"
+				+ "Minuto: 20/ Autor: Martin(Local)(En Contra)\n"
+				+ "Minuto: 20/ Autor: Juan(Visitante)(A Favor)\n"
+				+ "------------------------------\n"
+				+ "Amonestados: \n"
+				+ "Minuto: 25/ Autor: Martin(Local)\n"
+				+ "Minuto: 28/ Autor: Martin(Local)\n"
+				+ "------------------------------\n"
+				+ "Expulsados: \n"
+				+ "Minuto: 28/ Autor: Martin(Local)\n"
+				+ "Minuto: 40/ Autor: Juan(Visitante)\n";
+		
+		
 		Evento golAFavorLocal = new Evento(10, jugadorLocal, TipoDeEvento.GOL_A_FAVOR);
 		Evento golEnContraLocal = new Evento(20, jugadorLocal, TipoDeEvento.GOL_EN_CONTRA);
 		Evento golAFavorVisitante = new Evento(20, jugadorVisitante, TipoDeEvento.GOL_A_FAVOR);
@@ -222,7 +240,9 @@ public class PartidoDeFutbolTest {
 		partido.amonestar(segundaAmarillaLocal); // Se expulsa el jugadorLocal
 		partido.expulsar(expulsadoVisitante);
 		
-		System.out.println(partido);
+		valorObtenido = partido.toString();
+		
+		assertEquals(valorEsperado, valorObtenido);
 	}
 
 }
