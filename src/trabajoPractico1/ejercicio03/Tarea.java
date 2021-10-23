@@ -50,4 +50,9 @@ public class Tarea {
 	public String getDescripcion() {
 		return descripcion;
 	}
+	
+	@Override
+	public String toString() {
+		return this.titulo + ": " + this.descripcion;
+	}
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Modelo que representa un determinado usuario del tablero kanban
+ * Representa un usuario del tablero kanban
+ * Se supone que el nombre de usuario es único en el sitema del tablero
  */
 public class Usuario {
 	

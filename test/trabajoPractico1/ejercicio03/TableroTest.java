@@ -31,41 +31,61 @@ public class TableroTest {
 
 	@Test
 	public void queSePuedaAgregarUnUsuarioAlTablero() {
-		Boolean valorEsperado = Boolean.TRUE;
-		Boolean valorObtenido;
+		Usuario valorEsperado = usuarioUno;
+		Usuario valorObtenido;
+		Boolean sePudoAgregar;
 		
-		valorObtenido = kanban.agregarUnNuevoUsuario(usuarioUno);
+		sePudoAgregar = kanban.agregarUnNuevoUsuario(usuarioUno);
+		valorObtenido = kanban.buscarUsuarioPorNombre("Uno");
 		
+		assertTrue(sePudoAgregar);
 		assertEquals(valorEsperado, valorObtenido);
+	}
+	
+	@Test
+	public void queNoSePuedaAgregarUnUsuarioAlTableroSiYaExisteConEseNombre() {
+		Boolean sePudoAgregar;
+		
+		kanban.agregarUnNuevoUsuario(usuarioUno);
+		sePudoAgregar = kanban.agregarUnNuevoUsuario(usuarioUno);
+		
+		assertFalse(sePudoAgregar);
 	}
 	
 	@Test
 	public void queSePuedaAgregarUnaTareaAlTablero() {
 		Boolean valorEsperado = Boolean.TRUE;
 		Boolean valorObtenido;
+		List<Tarea> tareas = new ArrayList<Tarea>();
 		
 		valorObtenido = kanban.agregarNuevaTarea(tareaUno);
-		
+		tareas = kanban.obtenerTareasPorEstado(Estado.PENDIENTE);
+
 		assertEquals(valorEsperado, valorObtenido);
+		assertTrue(tareas.contains(tareaUno));
 	}
 	
 	@Test 
 	public void queSePuedaAsignarUnaTareaPendienteAUnUsuario() {
 		Boolean valorEsperado = Boolean.TRUE;
 		Boolean valorObtenido;
+		List<Tarea> tareasDelUsuario = new ArrayList<Tarea>();
 		
 		kanban.agregarUnNuevoUsuario(usuarioUno);
 		kanban.agregarNuevaTarea(tareaUno);
 		
-		valorObtenido = kanban.asignarTareaAUsuario(tareaUno, usuarioUno);
+		valorObtenido = kanban.asignarTareaAUsuario(tareaUno, "Uno");
+		tareasDelUsuario = kanban.obtenerTareasDelUsuario("Uno");
 		
 		assertEquals(valorEsperado, valorObtenido);
+		assertTrue(tareasDelUsuario.contains(tareaUno));
 	}
 	
 	@Test 
 	public void queNoSePuedaAsignarUnaTareaEnCursoAUnUsuarioDistintoAlQueLaTomo() {
 		Boolean valorEsperado = Boolean.FALSE;
 		Boolean valorObtenido;
+		List<Tarea> tareasDelUsuario = new ArrayList<Tarea>();
 		
 		// Se asigna al usuario uno y se cambia el estado
 		tareaUno.asignarUsuario(usuarioUno);
@@ -75,15 +95,18 @@ public class TableroTest {
 		kanban.agregarUnNuevoUsuario(usuarioDos);
 		kanban.agregarNuevaTarea(tareaUno);
 		
-		valorObtenido = kanban.asignarTareaAUsuario(tareaUno, usuarioDos);
+		valorObtenido = kanban.asignarTareaAUsuario(tareaUno, "Dos");
+		tareasDelUsuario = kanban.obtenerTareasDelUsuario("Dos");
 		
 		assertEquals(valorEsperado, valorObtenido);
+		assertFalse(tareasDelUsuario.contains(tareaUno));
 	}
 	
 	@Test 
 	public void queUnUsuarioPuedaFinalizarUnaTareaQueTieneAsignada() {
 		Boolean valorEsperado = Boolean.TRUE;
 		Boolean valorObtenido;
+		List<Tarea> tareasFinalizadas = new ArrayList<Tarea>();
 		
 		// Se asigna al usuario uno y se cambia el estado
 		tareaUno.asignarUsuario(usuarioUno);
@@ -92,16 +115,19 @@ public class TableroTest {
 		kanban.agregarUnNuevoUsuario(usuarioUno);
 		kanban.agregarNuevaTarea(tareaUno);
 		
-		valorObtenido = kanban.finalizarTarea(tareaUno, usuarioUno);
+		valorObtenido = kanban.finalizarTarea(tareaUno, "Uno");
+
+		tareasFinalizadas = kanban.obtenerTareasPorEstado(Estado.FINALIZADA);
 		
 		assertEquals(valorEsperado, valorObtenido);
-		
+		assertTrue(tareasFinalizadas.contains(tareaUno));
 	}
 	
 	@Test
 	public void queUnUsuarioNoPuedaFinalizarUnaTareaQueTieneAsignada() {
 		Boolean valorEsperado = Boolean.FALSE;
 		Boolean valorObtenido;
+		List<Tarea> tareasFinalizadas = new ArrayList<Tarea>();
 		
 		// Se asigna al usuario uno y se cambia el estado
 		tareaUno.asignarUsuario(usuarioUno);
@@ -111,9 +137,11 @@ public class TableroTest {
 		kanban.agregarUnNuevoUsuario(usuarioDos);
 		kanban.agregarNuevaTarea(tareaUno);
 		
-		valorObtenido = kanban.finalizarTarea(tareaUno, usuarioDos);
+		valorObtenido = kanban.finalizarTarea(tareaUno, "Dos");
+		tareasFinalizadas = kanban.obtenerTareasPorEstado(Estado.FINALIZADA);
 		
 		assertEquals(valorEsperado, valorObtenido);
+		assertFalse(tareasFinalizadas.contains(tareaUno));
 	}
 	
 	@Test
@@ -123,7 +151,7 @@ public class TableroTest {
 		kanban.agregarNuevaTarea(tareaUno);
 		kanban.agregarNuevaTarea(tareaDos);
 		
-		listaEsperada = kanban.obtenerTareasPendientes();
+		listaEsperada = kanban.obtenerTareasPorEstado(Estado.PENDIENTE);
 		
 		assertTrue(listaEsperada.contains(tareaUno));
 		assertTrue(listaEsperada.contains(tareaDos));
@@ -136,13 +164,38 @@ public class TableroTest {
 		tareaUno.asignarUsuario(usuarioUno);
 		tareaDos.asignarUsuario(usuarioDos);
 		
+		kanban.agregarUnNuevoUsuario(usuarioUno);
+		
 		kanban.agregarNuevaTarea(tareaUno);
 		kanban.agregarNuevaTarea(tareaDos);
+		kanban.asignarTareaAUsuario(tareaDos, "Uno");
 		
-		
-		listaEsperada = kanban.obtenerTareasDelUsuario(usuarioUno);
+		listaEsperada = kanban.obtenerTareasDelUsuario("Uno");
 		
 		assertTrue(listaEsperada.contains(tareaUno));
+		assertTrue(listaEsperada.contains(tareaDos));
+	}
+	
+	@Test
+	public void queSePuedanLimpiarLasTareasFinalizadas() {
+		List<Tarea> listaEsperada = new ArrayList<Tarea>();
+		
+		kanban.agregarUnNuevoUsuario(usuarioUno);
+		kanban.agregarUnNuevoUsuario(usuarioDos);
+		
+		kanban.agregarNuevaTarea(tareaUno);	
+		kanban.asignarTareaAUsuario(tareaUno, "Uno");
+		kanban.finalizarTarea(tareaUno, "Uno");
+		
+		kanban.agregarNuevaTarea(tareaDos);	
+		kanban.asignarTareaAUsuario(tareaDos, "Dos");
+		kanban.finalizarTarea(tareaDos, "Dos");
+
+		kanban.limpiarTaerasFinalizadas();
+		
+		listaEsperada = kanban.obtenerTareasPorEstado(Estado.FINALIZADA);
+		
+		assertFalse(listaEsperada.contains(tareaUno));
 		assertFalse(listaEsperada.contains(tareaDos));
 	}
 
