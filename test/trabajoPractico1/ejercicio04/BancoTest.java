@@ -72,7 +72,6 @@ public class BancoTest {
 		tipoObtenido = frances.clasificarCliente(1111111111);
 		
 		assertEquals(tipoEsperado, tipoObtenido);
-		
 	}
 	
 	@Test
@@ -92,10 +91,8 @@ public class BancoTest {
 		frances.buscarClientePorDni(1111111111).obtenerCuentas()[1].extraer(100.0);
 		
 		tipoObtenido = frances.clasificarCliente(1111111111);
-		System.out.println(tipoObtenido);
 		
 		assertEquals(tipoEsperado, tipoObtenido);
-		
 	}
 
 }
