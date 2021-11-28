@@ -16,7 +16,6 @@ public class SmartWatchTest {
 		garmin = new SmartWatch();
 		
 		nuevaCarrera = new Carrera();
-		
 	}
 
 	@Test
