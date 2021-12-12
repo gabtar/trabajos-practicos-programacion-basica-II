@@ -24,7 +24,7 @@ public class Vuelo {
 		this.pasajeros = new TreeSet<Pasajero>();
 		this.asientosOcupados = new Boolean[CANTIDAD_MAXIMA_DE_PASAJEROS_POR_FILA][CANTIDAD_MAXIMA_DE_PASAJEROS_POR_COLUMNA];
 		
-		// Se inicializan los asientos en False, sin asignar
+		// Se inicializan todos los asientos en False, sin asignar
 		for (int i = 0; i < asientosOcupados.length; i++) {
 			for (int j = 0; j < asientosOcupados[0].length; j++) {
 				asientosOcupados[i][j] = Boolean.FALSE;
@@ -72,7 +72,6 @@ public class Vuelo {
 		Boolean sePuedeAsignar = Boolean.FALSE;
 		
 		if(!pasajero.getTieneAsientoAsignado() && fila < CANTIDAD_MAXIMA_DE_PASAJEROS_POR_FILA && columna < CANTIDAD_MAXIMA_DE_PASAJEROS_POR_COLUMNA && !this.asientosOcupados[fila][columna]) {
-			// Se puede asignar
 			sePuedeAsignar = Boolean.TRUE;
 			this.asientosOcupados[fila][columna] = sePuedeAsignar;
 			pasajero.setTieneAsientoAsignado(sePuedeAsignar);
@@ -98,11 +97,12 @@ public class Vuelo {
 		return ordenadosPorDni;
 	}
 
+	/*
+	 * Devuelve un mapa de los asientos del vuelo indicando por cada uno si se
+	 * encuentra libre "L" u ocupado "O".
+	 */
+	@Override
 	public String toString() {
-		/*
-		 * Devuelve un mapa de los asientos del vuelo indicando por cada uno si se
-		 * encuentra libre "L" u ocupado "O".
-		 */
 		String mapaDeAsientos = "";
 		
 		for (int i = 0; i < asientosOcupados.length; i++) {

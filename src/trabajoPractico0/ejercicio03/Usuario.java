@@ -11,7 +11,6 @@ public class Usuario {
 	private Boolean estaBloqueado;
 
 	public Usuario(String nombreDeUsuario, String contrasenia) {
-		super();
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasenia = contrasenia;
 		this.estaLogueado = Boolean.FALSE;

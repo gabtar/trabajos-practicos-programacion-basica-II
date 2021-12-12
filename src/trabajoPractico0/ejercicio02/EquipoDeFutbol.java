@@ -26,7 +26,7 @@ public class EquipoDeFutbol {
 	public Boolean agregarJugador(Jugador nuevo) {
 		Boolean sePudoAgregar = Boolean.FALSE;
 		
-		if (this.buscar(nuevo.getNumero()) != null || this.buscar(nuevo.getNombre()) != null) {
+		if (this.buscar(nuevo.getNumero()) != null || this.buscar(nuevo.getNombre()) != null || this.cantidadDeJugadoresEnElEquipo == CANTIDAD_MAXIMA_DE_JUGADORES_POR_EQUIPO) {
 			return sePudoAgregar;
 		}
 			

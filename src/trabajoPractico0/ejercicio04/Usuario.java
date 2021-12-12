@@ -12,11 +12,19 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 	
+	/*
+	 * Crea una nueva lista vacia de canciones
+	 * Se supone que no existen dos listas con el mismo nombre
+	 * Se podria haber agregado una exception al agregar nombre de lista existente
+	 */
 	public Boolean agregarNuevaLista(String nombreDeLaLista) {
 		// Agrega una nueva lista de reproducción
 		return this.listaDeReproduccion.add(new ListaDeReproduccion(nombreDeLaLista));
 	}
 	
+	/*
+	 * Agrega una cancion a una determinada lista de canciones
+	 */
 	public Boolean agregarCancionALaLista(String nombreDeLaLista, Cancion cancion) {
 		Boolean sePudoAgregar = Boolean.FALSE;
 		ListaDeReproduccion listaAAgregarCancion = this.buscarListaPorNombre(nombreDeLaLista);
@@ -28,8 +36,10 @@ public class Usuario {
 		return sePudoAgregar;
 	}
 	
+	/*
+	 * Muestra por pantalla las listas de reproduccion con sus canciones y detalles
+	 */
 	public String verMisListasDeReproduccion() {
-		// Devuelve el listado de listas de reproducción disponible en forma de String (debe brindar información adecuada de cada lista, por ejemplo su duración)
 		String listasDeReproduccion = "";
 		
 		for(ListaDeReproduccion lista : this.listaDeReproduccion) {
@@ -39,8 +49,10 @@ public class Usuario {
 		return listasDeReproduccion;
 	}
 	
+	/*
+	 * Reproduce por pantalla la lista que se pasa por parametro 
+	 */
 	public String reproducirMiLista(String nombreDeLaLista) {
-		// Devuelve una lista de reproducción determinada en forma de String, incluyendo cada una de sus canciones y la información de cada canción (por ejemplo autor y duración)
 		ListaDeReproduccion lista = this.buscarListaPorNombre(nombreDeLaLista);
 		String reproduccion;
 		
@@ -49,6 +61,9 @@ public class Usuario {
 		return reproduccion;
 	}
 
+	/*
+	 * Busca una lista de reproduccion por su nombre
+	 */
 	private ListaDeReproduccion buscarListaPorNombre(String nombreDeLaLista) {
 		ListaDeReproduccion listaABuscar = null;
 		

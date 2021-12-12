@@ -25,6 +25,9 @@ public class Cliente {
 		return this.dni;
 	}
 	
+	/*
+	 * Agrega una nueva cuenta al cliente
+	 */
 	public Boolean agregarCuenta(Cuenta nuevaCuenta) {
 		Boolean seAgrego = Boolean.FALSE;
 		

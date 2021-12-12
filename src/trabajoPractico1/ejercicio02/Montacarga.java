@@ -15,6 +15,11 @@ public class Montacarga {
 		this.pesoActual = 0.0;
 	}
 	
+	/*
+	 * Se agrega una nueva carga.
+	 * No se puede agregar si se sobrepasa el limite del montacarga
+	 * Se podría haber planteado con una excepcion
+	 */
 	public Boolean agregarCarga(Carga carga) {
 		Boolean sePudoAgregar = Boolean.FALSE;
 		
@@ -24,7 +29,6 @@ public class Montacarga {
 				this.pesoActual += carga.getPeso();
 				sePudoAgregar = Boolean.TRUE;
 				
-				// Verifico que no sobrepase el peso maximo
 				if(this.estaSobrecargado()) {
 					this.pesoActual -= carga.getPeso();
 					this.cargas[i] = null;
