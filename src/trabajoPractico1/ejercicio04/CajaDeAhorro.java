@@ -1,6 +1,10 @@
 package trabajoPractico1.ejercicio04;
 
 public class CajaDeAhorro extends Cuenta {
+	/*
+	 * Similar a la cuenta sueldo, pero despues de la 5 extraccion se 
+	 * cobra un adicional
+	 */
 	
 	private static final Integer LIMITE_DE_EXTRACCIONES_SIN_COSTO = 5;
 	private static final Double COSTO_ADICIONAL = 6.0;

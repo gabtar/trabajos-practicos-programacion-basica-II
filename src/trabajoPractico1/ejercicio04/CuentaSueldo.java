@@ -1,6 +1,9 @@
 package trabajoPractico1.ejercicio04;
 
 public class CuentaSueldo extends Cuenta {
+	/*
+	 * Cuenta basica.
+	 */
 	
 	public CuentaSueldo(Cliente cliente) {
 		super(cliente);

@@ -11,7 +11,11 @@ public class Banco {
 		this.nombre = nombre;
 		this.clientes = new Cliente[CANTIDAD_MAXIMA_DE_CLIENTES];
 	}
-	
+	/*
+	 * Se agrega un nuevo cliente al banco
+	 * No se pueden agregar clientes que tengan igual dni
+	 * Se podría haber planteado con alguna estructura Set()
+	 */
 	public Boolean agregarCliente(String nombre, String apellido, Integer dni) {
 		
 		if(this.buscarClientePorDni(dni) != null) {
@@ -28,6 +32,9 @@ public class Banco {
 		return Boolean.FALSE;
 	}
 	
+	/*
+	 * Se crea una nueva cuenta a un determinado cliente 
+	 */
 	public Boolean crearCuentaAlCliente(Integer dni, TipoDeCuenta tipoCuenta) {
 		Boolean sePudoAgregar = Boolean.FALSE;
 		Cliente clienteDelBanco = this.buscarClientePorDni(dni);
@@ -48,6 +55,9 @@ public class Banco {
 		return sePudoAgregar;
 	}
 	
+	/*
+	 * Busca al cliente por dni
+	 */
 	public Cliente buscarClientePorDni(Integer dni) {
 		Cliente clienteBuscado = null;
 		Boolean seEncontro = Boolean.FALSE; 
@@ -62,6 +72,11 @@ public class Banco {
 		return clienteBuscado;
 	}
 	
+	/*
+	 * Clasifica al cliente si es VIP o no. 
+	 * Los clientes VIP son aquellos cuyo saldo es superior a 1millon y no tienen
+	 * saldo negativo en ninguna cuenta
+	 */
 	public TipoCliente clasificarCliente(Integer dni) {
 		Double saldoDelCliente = 0.0;
 		Boolean puedeSerVip = Boolean.TRUE;

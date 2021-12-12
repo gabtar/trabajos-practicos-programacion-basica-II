@@ -12,11 +12,10 @@ public abstract class Cuenta {
 		this.cliente = cliente;
 		this.numeroDeCuenta = cantidadDeCuentas++;
 		
-		// Por defecto se inicializa la cuenta con saldo nulo
 		this.saldo = 0.0;
 		
 	}
-
+	
 	abstract public Boolean extraer(Double cantidad);
 	
 	public void depositar(Double cantidad) {
